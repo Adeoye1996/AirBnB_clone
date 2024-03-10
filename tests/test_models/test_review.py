@@ -62,7 +62,7 @@ class TestReview_instantiation(unittest.TestCase):
         self.assertLess(review1.created_at, review2.created_at)
 
     def test_two_reviews_different_updated_at(self):
-        reiew1 = Review()
+        review1 = Review()
         sleep(0.05)
         review2 = Review()
         self.assertLess(review1.updated_at, review2.updated_at)
@@ -74,7 +74,7 @@ class TestReview_instantiation(unittest.TestCase):
         review.id = "123456"
         review.created_at = review.updated_at = dt
         review_str = review.__str__()
-        self.assertIn("[Review] (123456)", reviewstr)
+        self.assertIn("[Review] (123456)", review_str)
         self.assertIn("'id': '123456'", review_str)
         self.assertIn("'created_at': " + dt_repr, review_str)
         self.assertIn("'updated_at': " + dt_repr, review_str)
@@ -127,7 +127,7 @@ class TestReview_save(unittest.TestCase):
         review = Review()
         sleep(0.05)
         first_updated_at = review.updated_at
-        rv.save()
+        review.save()
         second_updated_at = review.updated_at
         self.assertLess(first_updated_at, second_updated_at)
         sleep(0.05)
