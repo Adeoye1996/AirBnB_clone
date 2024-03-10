@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+"""Module for HBnB console."""
 import cmd
 import re
 from shlex import split
@@ -32,47 +32,41 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines the HolbertonBnB command interpreter.
+    """HBNBCommand console class.
 
     Attributes:
         prompt (str): The command prompt.
     """
 
     prompt = "(hbnb) "
-    __classes = {
-        "BaseModel",
-        "User",
-        "State",
-        "City",
-        "Place",
-        "Amenity",
-        "Review"
-    }
+    valid_classes = ["BaseModel", "User", "Amenity",
+                     "Place", "Review", "State", "City"]
 
     def emptyline(self):
-        """Do nothing upon receiving an empty line."""
+        """Do nothing when an empty line is entered."""
         pass
 
     def default(self, arg):
-        """Default behavior for cmd module when input is invalid"""
-        argdict = {
-            "all": self.do_all,
-            "show": self.do_show,
-            "destroy": self.do_destroy,
-            "count": self.do_count,
-            "update": self.do_update
-        }
-        match = re.search(r"\.", arg)
+    """Default behavior for cmd module when input is invalid"""
+    argdict = {
+        "all": self.do_all,
+        "show": self.do_show,
+        "destroy": self.do_destroy,
+        "count": self.do_count,
+        "update": self.do_update
+    }
+    match = re.search(r"\.", arg)
+    if match is not None:
+        command_args = [arg[:match.span()[0]], arg[match.span()[1]:]]
+        match = re.search(r"\((.*?)\)", command_args[1])
         if match is not None:
-            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
-            match = re.search(r"\((.*?)\)", argl[1])
-            if match is not None:
-                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
-                if command[0] in argdict.keys():
-                    call = "{} {}".format(argl[0], command[1])
-                    return argdict[command[0]](call)
-        print("*** Unknown syntax: {}".format(arg))
-        return False
+            command = [command_args[1][:match.span()[0]], match.group()[1:-1]]
+            if command[0] in argdict.keys():
+                call = "{} {}".format(command_args[0], command[1])
+                return argdict[command[0]](call)
+    print("*** Unknown syntax: {}".format(arg))
+    return False
+
 
     def do_quit(self, arg):
         """Quit command to exit the program."""
@@ -98,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """Usage: show <class> <id> or <class>.show(<id>)
-        Display the string representation of a class instance of a given id.
+        Show the string representation of an instance..
         """
         argl = parse(arg)
         objdict = storage.all()
@@ -115,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Usage: destroy <class> <id> or <class>.destroy(<id>)
-        Delete a class instance of a given id."""
+        Delete an instance based on the class name and id."""
         argl = parse(arg)
         objdict = storage.all()
         if len(argl) == 0:
@@ -132,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Usage: all or all <class> or <class>.all()
-        Display string representations of all instances of a given class.
+        Print string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
         argl = parse(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
