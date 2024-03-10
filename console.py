@@ -1,16 +1,16 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+"""Module for the HBnB console."""
 import cmd
 import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
-from models.state import State
 from models.city import City
+from models.review import Review
 from models.place import Place
 from models.amenity import Amenity
-from models.review import Review
+from models.state import State
 
 def parse(arg):
     curly_braces = re.search(r"\{(.*?)\}", arg)
@@ -49,7 +49,7 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def emptyline(self):
-        """Do nothing upon receiving an empty line."""
+        """Do nothing when an empty line is entered."""
         pass
 
     def default(self, arg):
@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """Usage: show <class> <id> or <class>.show(<id>)
-        Display the string representation of a class instance of a given id.
+        Show the string representation of a instance.
         """
         command_args = parse(arg)
         objdict = storage.all()
@@ -114,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Usage: destroy <class> <id> or <class>.destroy(<id>)
-        Delete a class instance of a given id."""
+        Delete an instance based on the class given name and id."""
         command_args = parse(arg)
         objdict = storage.all()
         if len(command_args) == 0:
