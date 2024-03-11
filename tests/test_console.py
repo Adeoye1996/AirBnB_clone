@@ -4,25 +4,25 @@
 Unittest classes:
     TestHBNBCommand_prompting
     TestHBNBCommand_help
-    TestHBNBCommand_exit
-    TestHBNBCommand_create
+    TestHBNBCommand_update
     TestHBNBCommand_show
+    TestHBNBCommand_create
     TestHBNBCommand_all
     TestHBNBCommand_destroy
-    TestHBNBCommand_update
+    TestHBNBCommand_exit
 """
 import os
 import sys
 import unittest
 from unittest.mock import patch
 from io import StringIO
-from models import storage
 from models.engine.file_storage import FileStorage
+from models import storage
 from console import HBNBCommand
 
 
 class TestHBNBCommand_prompting(unittest.TestCase):
-    """Unittests for testing prompting of the HBNB command interpreter."""
+    """Unittests testing prompting of the HBNB command interpreter."""
     def test_prompt_string(self):
         self.assertEqual("(hbnb) ", HBNBCommand.prompt)
 
@@ -33,7 +33,7 @@ class TestHBNBCommand_prompting(unittest.TestCase):
 
 
 class TestHBNBCommand_help(unittest.TestCase):
-    """Unittests for testing help messages of the HBNB command interpreter."""
+    """Unittests testing help messages of the HBNB command interpreter."""
 
     def test_help_quit(self):
         h = "Quit command to exit the program."
@@ -57,7 +57,7 @@ class TestHBNBCommand_help(unittest.TestCase):
 
 
 class TestHBNBCommand_exit(unittest.TestCase):
-    """Unittests for testing exiting from the HBNB command interpreter."""
+    """Unittests testing exiting from the HBNB command interpreter."""
 
     def test_quit_exits(self):
         with patch("sys.stdout", new=StringIO()) as output:
@@ -69,7 +69,7 @@ class TestHBNBCommand_exit(unittest.TestCase):
 
 
 class TestHBNBCommand_create(unittest.TestCase):
-    """Unittests for testing create from the HBNB command interpreter."""
+    """Unittests testing create from the HBNB command interpreter."""
 
     @classmethod
     def setUp(self):
@@ -151,7 +151,7 @@ class TestHBNBCommand_create(unittest.TestCase):
 
 
 class TestHBNBCommand_show(unittest.TestCase):
-    """Unittests for testing show from the HBNB command interpreter"""
+    """Unittests testing show from the HBNB command interpreter"""
 
     @classmethod
     def setUp(self):
