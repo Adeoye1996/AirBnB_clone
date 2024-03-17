@@ -1,0 +1,31 @@
+@media only screen and (max-width: 600px) {
+}
+
+/* For small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+/*For medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+/* For large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+footer {
+  clear: left;
+  height: 60px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+  justify-content: center;
+  border-top: 1px solid #CCCCCC;
+}
+
+footer p {
+  text-align: center;
+  color: #484848;
+}
